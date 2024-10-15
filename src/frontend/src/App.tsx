@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 function App() {
   const [greeting, setGreeting] = useState('');
@@ -6,10 +7,15 @@ function App() {
   function handleSubmit(event: any) {
     event.preventDefault();
     const name = event.target.elements.name.value;
-    fetch(`${import.meta.env.VITE_CANISTER_URL}/greet?name=${name}`)
-      .then(response => response.json()).then((json) => {
-        setGreeting(json.greeting)
-      });
+    axios.get(`${import.meta.env.VITE_CANISTER_URL}/greet`, {
+      params: { name }
+    })
+    .then(response => {
+      setGreeting(response.data.greeting);
+    })
+    .catch(error => {
+      console.error('There was an error!', error);
+    });
   }
 
   return (
