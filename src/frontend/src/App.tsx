@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { QueryClient } from '@tanstack/react-query';
 
 function App() {
   const [greeting, setGreeting] = useState('');
